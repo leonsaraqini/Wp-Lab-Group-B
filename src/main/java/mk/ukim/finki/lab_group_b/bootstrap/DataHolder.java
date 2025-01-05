@@ -1,7 +1,8 @@
 package mk.ukim.finki.lab_group_b.bootstrap;
 
 import jakarta.annotation.PostConstruct;
-import mk.ukim.finki.lab_group_b.model.*;
+import mk.ukim.finki.lab_group_b.model.Artist;
+import mk.ukim.finki.lab_group_b.model.Song;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.List;
 
 @Component
 public class DataHolder {
-    public static List<Artist> artists;
-    public static List<Song> songs;
+    public static List<Artist> artists = null;
+    public static List<Song> songs = null;
 
     @PostConstruct
     public void init(){

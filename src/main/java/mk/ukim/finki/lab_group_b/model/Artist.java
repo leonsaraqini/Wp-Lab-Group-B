@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Artist {
-    Long id;
-    String firstName;
-    String lastName;
-    String bio;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String bio;
 }
