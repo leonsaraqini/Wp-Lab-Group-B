@@ -22,8 +22,8 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Artist addArtistToSong(Artist artist, Song song) {
-        return songRepository.addArtistToSong(artist, song);
+    public void addArtistToSong(Artist artist, Song song) {
+        songRepository.addArtistToSong(artist, song);
     }
 
     @Override

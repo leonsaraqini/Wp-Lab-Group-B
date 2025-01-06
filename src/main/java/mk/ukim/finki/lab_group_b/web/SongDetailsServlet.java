@@ -1,10 +1,12 @@
-package mk.ukim.finki.lab_group_b.web.servlet;
+package mk.ukim.finki.lab_group_b.web;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mk.ukim.finki.lab_group_b.model.Song;
+import mk.ukim.finki.lab_group_b.service.ArtistService;
 import mk.ukim.finki.lab_group_b.service.SongService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -13,14 +15,16 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(name = "SongListServlet", urlPatterns = "listSongs")
-public class SongListServlet extends HttpServlet {
-    private final SongService songService;
+@WebServlet(name = "SongDetailsServlet", urlPatterns = "/songDetails")
+public class SongDetailsServlet extends HttpServlet {
+    private final ArtistService artistService;
     private final SpringTemplateEngine springTemplateEngine;
+    private final SongService songService;
 
-    public SongListServlet(SongService songService, SpringTemplateEngine springTemplateEngine) {
-        this.songService = songService;
+    public SongDetailsServlet(ArtistService artistService, SpringTemplateEngine springTemplateEngine, SongService songService) {
+        this.artistService = artistService;
         this.springTemplateEngine = springTemplateEngine;
+        this.songService = songService;
     }
 
     @Override
@@ -30,8 +34,13 @@ public class SongListServlet extends HttpServlet {
                 .buildExchange(req, resp);
 
         WebContext context = new WebContext(webExchange);
-        context.setVariable("songs", songService.listSongs());
 
-        springTemplateEngine.process("listSongs.html", context, resp.getWriter());
+        String trackId = req.getParameter("trackId");
+        Song song = songService.findByTrackId(trackId);
+
+        context.setVariable("song", song);
+        context.setVariable("artists", song.getArtists());
+
+        springTemplateEngine.process("songDetails.html", context, resp.getWriter());
     }
 }

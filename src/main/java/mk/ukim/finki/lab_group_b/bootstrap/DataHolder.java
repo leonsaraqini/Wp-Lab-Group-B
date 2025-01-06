@@ -1,6 +1,7 @@
 package mk.ukim.finki.lab_group_b.bootstrap;
 
 import jakarta.annotation.PostConstruct;
+
 import mk.ukim.finki.lab_group_b.model.Artist;
 import mk.ukim.finki.lab_group_b.model.Song;
 import org.springframework.stereotype.Component;
@@ -15,14 +16,15 @@ public class DataHolder {
 
     @PostConstruct
     public void init(){
+
+
         artists = new ArrayList<>();
+        songs = new ArrayList<>();
 
         artists.add(new Artist(1L, "John", "Doe", "A contemporary painter known for abstract works."));
         artists.add(new Artist(2L, "Jane", "Smith", "An accomplished sculptor specializing in marble."));
         artists.add(new Artist(3L, "Emily", "Johnson", "A digital artist focusing on futuristic themes."));
         artists.add(new Artist(4L, "Michael", "Brown", "A photographer renowned for capturing urban landscapes."));
-
-        songs = new ArrayList<>();
 
         songs.add(new Song("TRK001", "Abstract Sounds", "Electronic", 2022, List.of(artists.get(0), artists.get(2))));
         songs.add(new Song("TRK002", "Marble Symphony", "Classical", 2020, List.of(artists.get(1))));

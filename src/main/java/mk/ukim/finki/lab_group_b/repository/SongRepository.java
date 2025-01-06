@@ -21,10 +21,9 @@ public class SongRepository {
                 .get();
     }
 
-    public Artist addArtistToSong(Artist artist, Song song){
+    public void addArtistToSong(Artist artist, Song song){
         Song s = findByTrackId(song.getTrackId());
         s.addArtist(artist);
-        return artist;
     }
 
 

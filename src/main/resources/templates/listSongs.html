@@ -15,16 +15,13 @@
 </header>
 <main>
     <h2>Choose a song:</h2>
-    <!-- Display radio buttons for each song,
-            the value should be the trackId
-            and the displayed text should be Title: <songTitle>, Genre:<genre>, Release Year: <releaseYear> -->
-    <th:block th:each="song: ${songs}">
-        <input type="radio" name="song" th:value="${song.getTrackId()}"> Title: <span th:text="${song.getTitle()}"></span> , Genre: <span th:text="${song.getGenre()}"></span> , Release Year: <span th:text="${song.getReleaseYear()}"></span><br/>
-    </th:block>
-    <input type="radio" name="trackId" value="1"> Song 1 <br/>
-    <input type="radio" name="trackId" value="2"> Song 2<br/>
-    <input type="radio" name="trackId" value="3"> Song 3 <br/>
-    <input type='submit' value='Submit'>
+    <form th:action="@{/listSongs}" th:method="POST">
+        <th:block th:each="song: ${songs}">
+            <input type="radio" name="song" th:value="${song.getTrackId()}"> Title: <span th:text="${song.getTitle()}"></span> , Genre: <span th:text="${song.getGenre()}"></span> , Release Year: <span th:text="${song.getReleaseYear()}"></span><br/>
+        </th:block>
+
+        <input type='submit' value='Submit'>
+    </form>
 </main>
 </body>
 </html>

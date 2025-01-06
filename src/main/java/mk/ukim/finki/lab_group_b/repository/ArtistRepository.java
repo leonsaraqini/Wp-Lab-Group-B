@@ -18,4 +18,5 @@ public class ArtistRepository {
                 .filter(a -> a.getId().equals(id))
                 .findFirst();
     }
+
 }
