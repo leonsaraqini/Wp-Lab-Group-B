@@ -1,1 +1,1 @@
-# Lab B in Web Programming
+# Event Booking
