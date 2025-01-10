@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mk.ukim.finki.lab_group_b.model.Artist;
 import mk.ukim.finki.lab_group_b.model.Song;
 import mk.ukim.finki.lab_group_b.service.ArtistService;
@@ -16,7 +17,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(name = "ArtistServlet", urlPatterns = "/artist")
+@WebServlet(name = "ArtistServlet", urlPatterns = "/servlet/artist")
 public class ArtistServlet extends HttpServlet {
     private final ArtistService artistService;
     private final SpringTemplateEngine springTemplateEngine;
@@ -36,9 +37,9 @@ public class ArtistServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
 
-        String trackId = req.getParameter("trackId");
+        HttpSession session = req.getSession();
 
-        context.setVariable("trackId", trackId);
+        context.setVariable("trackId", session.getAttribute("trackId"));
         context.setVariable("artists", artistService.listArtists());
 
         springTemplateEngine.process("artistsList.html", context, resp.getWriter());
@@ -46,14 +47,16 @@ public class ArtistServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String selectedArtistId = req.getParameter("artistId");
-        String trackId = req.getParameter("trackId");
+        HttpSession session = req.getSession();
 
-        Song song = songService.findByTrackId(trackId);
+        String selectedArtistId = req.getParameter("artistId");
+        String trackId = session.getAttribute("trackId").toString();
+
+        Song song = songService.findById(Long.parseLong(trackId));
         Artist artist = artistService.findById(Long.parseLong(selectedArtistId));
 
         songService.addArtistToSong(artist, song);
 
-        resp.sendRedirect("/songDetails?trackId=" + trackId);
+        resp.sendRedirect("/songDetails");
     }
 }

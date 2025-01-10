@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mk.ukim.finki.lab_group_b.model.Song;
 import mk.ukim.finki.lab_group_b.service.ArtistService;
 import mk.ukim.finki.lab_group_b.service.SongService;
@@ -35,8 +36,10 @@ public class SongDetailsServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
 
-        String trackId = req.getParameter("trackId");
-        Song song = songService.findByTrackId(trackId);
+        HttpSession session = req.getSession();
+
+        String trackId = session.getAttribute("trackId").toString();
+        Song song = songService.findById(Long.parseLong(trackId));
 
         context.setVariable("song", song);
         context.setVariable("artists", song.getArtists());

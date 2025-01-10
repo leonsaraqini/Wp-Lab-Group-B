@@ -27,7 +27,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song findByTrackId(String trackId) {
-        return songRepository.findByTrackId(trackId);
+    public Song findById(Long id) {
+        return songRepository.findById(id);
     }
 }

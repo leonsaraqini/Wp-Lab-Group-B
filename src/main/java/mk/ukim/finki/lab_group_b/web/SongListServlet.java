@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mk.ukim.finki.lab_group_b.service.SongService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -14,7 +15,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 import java.io.IOException;
 
 
-@WebServlet(name = "SongListServlet", urlPatterns = "/listSongs")
+@WebServlet(name = "SongListServlet", urlPatterns = {"/servlet/listSongs", "/servlet"})
 public class SongListServlet extends HttpServlet {
     private final SongService songService;
     private final SpringTemplateEngine springTemplateEngine;
@@ -40,6 +41,9 @@ public class SongListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String selectedTrackId = req.getParameter("song");
 
-        resp.sendRedirect("/artist?trackId=" + selectedTrackId);
+        HttpSession session = req.getSession();
+        session.setAttribute("trackId", selectedTrackId);
+
+        resp.sendRedirect("/artist");
     }
 }

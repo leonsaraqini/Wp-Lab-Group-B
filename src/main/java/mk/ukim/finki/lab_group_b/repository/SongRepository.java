@@ -13,16 +13,15 @@ public class SongRepository {
         return DataHolder.songs;
     }
 
-    public Song findByTrackId(String trackId){
+    public Song findById(Long id){
         return DataHolder.songs.stream()
-                .filter(s -> s.getTrackId()
-                        .contains(trackId))
+                .filter(s -> s.getId().equals(id))
                 .findFirst()
                 .get();
     }
 
     public void addArtistToSong(Artist artist, Song song){
-        Song s = findByTrackId(song.getTrackId());
+        Song s = findById(song.getId());
         s.addArtist(artist);
     }
 

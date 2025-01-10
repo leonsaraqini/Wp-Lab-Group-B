@@ -1,34 +1,41 @@
 package mk.ukim.finki.lab_group_b.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class Song {
-    private String trackId;
+    private Long id;
     private String title;
     private String genre;
     private int releaseYear;
     private List<Artist> artists;
+    private Album album;
 
-    public Song(String trackId, String title, String genre, int releaseYear, List<Artist> artists) {
+    public Song(String title, String genre, int releaseYear, List<Artist> artists, Album album) {
         this.artists = new ArrayList<>(artists);
-        this.trackId = trackId;
+        this.id = (long) (Math.random() * 1000);
         this.title = title;
         this.genre = genre;
         this.releaseYear = releaseYear;
+        this.album = album;
     }
 
-    public String getTrackId() {
-        return trackId;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setTrackId(String trackId) {
-        this.trackId = trackId;
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

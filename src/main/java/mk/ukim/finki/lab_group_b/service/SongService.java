@@ -7,5 +7,5 @@ import java.util.List;
 public interface SongService {
     List<Song> listSongs();
     void addArtistToSong(Artist artist, Song song);
-    public Song findByTrackId(String trackId);
+    public Song findById(Long id);
 }
