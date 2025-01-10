@@ -14,7 +14,7 @@ public class Song {
     private Album album;
 
     public Song(String title, String genre, int releaseYear, List<Artist> artists, Album album) {
-        this.artists = new ArrayList<>(artists);
+        setArtists(artists);
         this.id = (long) (Math.random() * 1000);
         this.title = title;
         this.genre = genre;
@@ -67,12 +67,22 @@ public class Song {
     }
 
     public void setArtists(List<Artist> artists) {
-        this.artists = artists;
+        if(artists == null)
+            this.artists = new ArrayList<>();
+        else
+            this.artists = artists;
     }
 
     public void addArtist(Artist artist){
         boolean artistExists = getArtists().stream().anyMatch(a -> a.getId().equals(artist.getId()));
 
         if(!artistExists) artists.add(artist);
+    }
+
+    public void setSong(String title, String genre, int releaseYear, Album album) {
+        setTitle(title);
+        setGenre(genre);
+        setReleaseYear(releaseYear);
+        setAlbum(album);
     }
 }

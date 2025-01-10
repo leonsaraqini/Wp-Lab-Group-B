@@ -12,5 +12,10 @@ public class AlbumRepository {
         return DataHolder.albums;
     }
 
-
+    public Album findById(Long id){
+        return DataHolder.albums.stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst()
+                .get();
+    }
 }
